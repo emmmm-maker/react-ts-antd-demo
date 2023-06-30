@@ -3,14 +3,17 @@ import logoLeft from '@/assets/images/login_left.png'
 import { Card, Form, Input, Button, Row, Col } from 'antd'
 import { CloseCircleOutlined, UserOutlined } from '@ant-design/icons'
 import { LoginData } from '@/types/data'
+import { login } from '@/api/login'
 
 function Login() {
   const [form] = Form.useForm()
   const onReset = () => {
     form.resetFields()
   }
-  const onSubmit = (value: LoginData) => {
+  const onSubmit = async (value: LoginData) => {
     console.log(value)
+    const res = await login(value)
+    console.log('res', res.data)
   }
   return (
     <div className={styles.root}>
@@ -37,7 +40,7 @@ function Login() {
                 name="password"
                 rules={[{ required: true, message: '请输入密码' }]}
               >
-                <Input placeholder="请输入密码" size="large" />
+                <Input type="password" placeholder="请输入密码" size="large" />
               </Form.Item>
               <Form.Item style={{ marginTop: '40px' }}>
                 <Row>
